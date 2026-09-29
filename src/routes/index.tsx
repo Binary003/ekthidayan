@@ -23,8 +23,9 @@ import photo7 from "../assets/photo-7.jpeg.asset.json";
 import photo8 from "../assets/photo-8.jpeg.asset.json";
 import music from "../assets/music.mp3.asset.json";
 
+const firstMemory = { src: photo1.url, caption: "Muskan, looking like the queen of every place she walks into", position: "center 35%" };
 const memories = [
-  { src: photo1.url, caption: "Muskan, looking like the queen of every place she walks into", position: "center 35%" },
+  firstMemory,
   { src: photo2.url, caption: "Two friends, one beautiful view, and a lifetime of memories ❤", position: "center 35%" },
   { src: photo3.url, caption: "Dayan on top of the world, still patting my head like I'm her pet", position: "center 40%" },
   { src: photo4.url, caption: "Muskii laughing so hard she had to hide her face", position: "center 35%" },
@@ -99,7 +100,7 @@ function BirthdayPage() {
   const fadeAudio = useCallback((target: number) => {
     const audio = audioRef.current;
     if (!audio) return;
-    window.clearInterval(Number(audio.dataset.fade));
+    window.clearInterval(Number(audio.dataset["fade"]));
     const id = window.setInterval(() => {
       const diff = target - audio.volume;
       if (Math.abs(diff) < 0.015) {
@@ -108,7 +109,7 @@ function BirthdayPage() {
         if (target === 0) audio.pause();
       } else audio.volume = Math.max(0, Math.min(1, audio.volume + Math.sign(diff) * 0.01));
     }, 80);
-    audio.dataset.fade = String(id);
+    audio.dataset["fade"] = String(id);
   }, []);
 
   useEffect(() => {
@@ -133,7 +134,7 @@ function BirthdayPage() {
 
   const openGift = () => {
     if (dodges < 4) {
-      setDodgeText(dodgeMessages[dodges]);
+      setDodgeText(dodgeMessages[dodges] ?? dodgeMessages[0] ?? "Not so fast!");
       setDodges((value) => value + 1);
       setShaking(true);
       const maxX = Math.min(125, window.innerWidth / 3);
@@ -164,6 +165,7 @@ function BirthdayPage() {
 
   const continueStory = () => { setStory(true); setTyping(false); fadeAudio(0.25); window.setTimeout(() => document.querySelector("#memories")?.scrollIntoView(), 50); };
   const allOut = candles.every((candle) => !candle);
+  const currentMemory = memories[slide] ?? firstMemory;
 
   const replay = () => {
     setOpened(false); setTyping(false); setStory(false); setTyped(""); setDodges(0);
@@ -216,8 +218,8 @@ function BirthdayPage() {
             <p className="section-kicker">Chapter one</p><h2>Our Memories</h2><p className="section-intro">Eight little windows into a friendship I would choose in every lifetime.</p>
             <div className="carousel" onPointerDown={(e) => { touchStart.current = e.clientX; }} onPointerUp={(e) => { const d = e.clientX - touchStart.current; if (Math.abs(d) > 45) setSlide((s) => Math.max(0, Math.min(memories.length - 1, s + (d < 0 ? 1 : -1)))); }}>
               <button className="polaroid" onClick={() => setModal(true)} aria-label={`Enlarge memory ${slide + 1}`}>
-                <div className="photo-wrap"><img src={memories[slide].src} alt={`Memory ${slide + 1} with Muskan`} loading={slide === 0 ? "eager" : "lazy"} style={{ objectPosition: memories[slide].position }} /><span className="photo-count">0{slide + 1} / 08</span></div>
-                <p>{memories[slide].caption}</p>
+                <div className="photo-wrap"><img src={currentMemory.src} alt={`Memory ${slide + 1} with Muskan`} loading={slide === 0 ? "eager" : "lazy"} style={{ objectPosition: currentMemory.position }} /><span className="photo-count">0{slide + 1} / 08</span></div>
+                <p>{currentMemory.caption}</p>
               </button>
             </div>
             <div className="carousel-controls"><button onClick={() => setSlide((s) => Math.max(0, s - 1))} disabled={slide === 0} aria-label="Previous memory"><ArrowRight className="arrow-back" /></button><div className="heart-dots">{memories.map((_, i) => <button key={i} onClick={() => setSlide(i)} className={i === slide ? "active" : ""} aria-label={`Memory ${i + 1}`}><Heart fill="currentColor" /></button>)}</div><button onClick={() => setSlide((s) => Math.min(7, s + 1))} disabled={slide === 7} aria-label="Next memory"><ArrowRight /></button></div>
@@ -240,7 +242,7 @@ function BirthdayPage() {
         </div>
       )}
 
-      {modal && <div className="photo-modal" role="dialog" aria-modal="true" onClick={() => setModal(false)}><button aria-label="Close photo"><X /></button><img src={memories[slide].src} alt={`Memory ${slide + 1} enlarged`} /><p>{memories[slide].caption}</p></div>}
+      {modal && <div className="photo-modal" role="dialog" aria-modal="true" onClick={() => setModal(false)}><button aria-label="Close photo"><X /></button><img src={currentMemory.src} alt={`Memory ${slide + 1} enlarged`} /><p>{currentMemory.caption}</p></div>}
     </main>
   );
 }
