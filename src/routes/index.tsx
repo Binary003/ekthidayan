@@ -182,18 +182,19 @@ function BirthdayPage() {
     if (now - lastDodge.current < 250) return;
     lastDodge.current = now;
     const rect = btn.getBoundingClientRect();
-    if (!origin.current) origin.current = { left: rect.left - buttonPos.x, top: rect.top - buttonPos.y };
+    if (!origin.current) origin.current = { left: rect.left + rect.width / 2 - buttonPos.x, top: rect.top - buttonPos.y };
     const W = window.innerWidth, H = window.innerHeight;
     const css = getComputedStyle(document.documentElement);
     const safeT = parseFloat(css.getPropertyValue("--sat")) || 0, safeB = parseFloat(css.getPropertyValue("--sab")) || 0;
     const m = 16;
     const bw = Math.min(W - m * 2, Math.max(rect.width, 300)), bh = Math.max(rect.height, 64);
-    let left = rect.left, top = rect.top;
+    const curC = rect.left + rect.width / 2;
+    let left = curC, top = rect.top;
     for (let i = 0; i < 60; i++) {
-      const l = m + Math.random() * Math.max(0, W - bw - m * 2);
+      const l = m + bw / 2 + Math.random() * Math.max(0, W - bw - m * 2);
       const t = m + safeT + Math.random() * Math.max(0, H - bh - m * 2 - safeT - safeB);
       left = l; top = t;
-      if (Math.abs(l - rect.left) >= W * 0.35 || Math.abs(t - rect.top) >= H * 0.35) break;
+      if (Math.abs(l - curC) >= W * 0.35 || Math.abs(t - rect.top) >= H * 0.35) break;
     }
     setButtonPos({ x: left - origin.current.left, y: top - origin.current.top });
   };
