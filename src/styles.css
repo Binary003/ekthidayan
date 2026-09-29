@@ -72,4 +72,23 @@ button { font: inherit; touch-action: manipulation; }
 @keyframes confetti{0%{opacity:1;transform:rotate(calc(var(--i)*31deg)) translateY(0)}100%{opacity:0;transform:rotate(calc(var(--i)*31deg)) translateY(250px)}}
 @keyframes cardIn{from{opacity:0;transform:translateX(20px) rotate(2deg)}to{opacity:1;transform:none}} @keyframes imageReveal{from{opacity:.2;filter:blur(12px)}to{opacity:1;filter:blur(0)}}
 @keyframes flicker{to{transform:rotate(42deg) scale(.88)}} @keyframes smoke{0%{opacity:.6;transform:translateY(0) scale(.4)}100%{opacity:0;transform:translate(8px,-35px) scale(2)}} @keyframes firework{0%{opacity:0;transform:scale(.15)}30%{opacity:1}100%{opacity:0;transform:scale(1.2)}} @keyframes floatUp{to{transform:translateY(-115dvh) rotate(200deg)}} @keyframes rotatePhone{50%{transform:rotate(90deg)}}
-@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}:root { --sat: env(safe-area-inset-top); --sab: env(safe-area-inset-bottom); }
+.open-slot { position: relative; z-index: 20; min-height: 64px; display: flex; justify-content: center; }
+.intro-screen .open-button { position: relative; min-height: 56px; max-width: calc(100vw - 32px); padding: 10px 26px; line-height: 1.25; text-align: center; transition: transform .55s cubic-bezier(.34,1.56,.64,1), background .3s; will-change: transform; touch-action: none; }
+.open-label { display: inline-block; animation: labelIn .28s ease both; }
+.heart-burst { position: absolute; inset: 0; pointer-events: none; }
+.heart-burst svg { position: absolute; left: 50%; top: 50%; width: 12px !important; height: 12px; color: var(--rose); opacity: 0; animation: burst .7s ease-out forwards; --a: calc(var(--i) * 51deg); }
+@keyframes burst { 0% { opacity: 1; transform: translate(-50%,-50%) rotate(var(--a)) translateY(0) scale(.6); } 100% { opacity: 0; transform: translate(-50%,-50%) rotate(var(--a)) translateY(-46px) scale(1.1); } }
+@keyframes labelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.letter-screen { justify-content: flex-start; padding-top: max(80px, env(safe-area-inset-top)); padding-bottom: 42vh; }
+.letter-text { min-height: 0; }
+.carousel { position: relative; }
+.side-arrow { position: absolute; top: 42%; z-index: 3; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; border: 1px solid color-mix(in oklab, var(--rose) 60%, transparent); background: color-mix(in oklab, var(--primary) 35%, transparent); color: var(--cream); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 8px 22px oklch(0 0 0 / 35%); }
+.side-arrow.left { left: 6px; } .side-arrow.right { right: 6px; } .side-arrow svg { width: 24px; }
+.slide-progress { max-width: 360px; height: 3px; margin: 0 auto 14px; border-radius: 3px; background: var(--muted); overflow: hidden; }
+.slide-progress i { display: block; height: 100%; background: linear-gradient(90deg, var(--rose), var(--gold)); transform-origin: left; animation: fillBar 6s linear forwards; }
+@keyframes fillBar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.heart-dots { display: flex; justify-content: center; gap: 6px; }
+.gallery-continue { display: flex; margin: 26px auto 0; animation: fadeIn .5s ease both; }
+.nudge { animation: nudge 1s ease-in-out infinite; }
+@keyframes nudge { 50% { transform: translateX(4px); } }
