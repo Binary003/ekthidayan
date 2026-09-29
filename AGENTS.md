@@ -8,3 +8,8 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Project decisions
+
+- Keep the birthday experience fully static and contained in the `/` route so it loads quickly and works without accounts or stored data.
+- Serve uploaded photos and music through Lovable Assets so the repository remains lightweight and media delivery stays fast.
