@@ -15,26 +15,16 @@ import {
 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import photo1 from "../assets/photo-1.jpeg.asset.json";
-import photo2 from "../assets/photo-2.jpeg.asset.json";
-import photo3 from "../assets/photo-3.jpeg.asset.json";
-import photo4 from "../assets/photo-4.jpeg.asset.json";
-import photo5 from "../assets/photo-5.jpeg.asset.json";
-import photo6 from "../assets/photo-6.jpeg.asset.json";
-import photo7 from "../assets/photo-7.jpeg.asset.json";
-import photo8 from "../assets/photo-8.jpeg.asset.json";
-import music from "../assets/music.mp3.asset.json";
-
 // One array: each photo carries its own caption so they can never get mixed up.
 const memories = [
-  { src: photo6.url, caption: "Muskan, looking like the queen of every place she walks into", position: "center 35%" },
-  { src: photo8.url, caption: "Two friends, one beautiful view, and a lifetime of memories ❤", position: "center 55%" },
-  { src: photo4.url, caption: "Dayan on top of the world, still patting my head like I'm her pet", position: "center 40%" },
-  { src: photo3.url, caption: "Muskii laughing so hard she had to hide her face", position: "center 45%" },
-  { src: photo7.url, caption: "Happy Meal glasses and zero shame. Peak Dayan energy", position: "center 35%" },
-  { src: photo1.url, caption: "Holi ka sabse khatarnak Dayan", position: "center 30%" },
-  { src: photo5.url, caption: "Good food, good vibes, and the best company ❤", position: "center 45%" },
-  { src: photo2.url, caption: "No filter needed, Muskan. This smile is my favourite ❤", position: "center 30%" },
+  { src: "/images/photo-6.jpeg", caption: "Muskan, looking like the queen of every place she walks into", position: "center 35%" },
+  { src: "/images/photo-8.jpeg", caption: "Two friends, one beautiful view, and a lifetime of memories ❤", position: "center 55%" },
+  { src: "/images/photo-4.jpeg", caption: "Dayan on top of the world, still patting my head like I'm her pet", position: "center 40%" },
+  { src: "/images/photo-3.jpeg", caption: "Muskii laughing so hard she had to hide her face", position: "center 45%" },
+  { src: "/images/photo-7.jpeg", caption: "Happy Meal glasses and zero shame. Peak Dayan energy", position: "center 35%" },
+  { src: "/images/photo-1.jpeg", caption: "Holi ka sabse khatarnak Dayan", position: "center 30%" },
+  { src: "/images/photo-5.jpeg", caption: "Good food, good vibes, and the best company ❤", position: "center 45%" },
+  { src: "/images/photo-2.jpeg", caption: "No filter needed, Muskan. This smile is my favourite ❤", position: "center 30%" },
 ];
 const firstMemory = memories[0]!;
 const SLIDE_MS = 6000;
@@ -248,7 +238,7 @@ function BirthdayPage() {
 
   return (
     <main className="birthday-shell">
-      <audio ref={audioRef} src={music.url} loop preload="auto" />
+      <audio ref={audioRef} src="/music.mp3" loop preload="auto" />
       <div className="landscape-hint"><span className="phone-icon" />Please view in portrait mode</div>
       {opened && <button className="music-button" onClick={toggleMusic} aria-label={musicOn ? "Pause music" : "Play music"}>{musicOn ? <Pause /> : <Play />}{musicOn && <span className="equalizer"><i /><i /><i /></span>}</button>}
       <FloatingHearts />
