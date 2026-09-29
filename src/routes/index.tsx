@@ -250,7 +250,7 @@ function BirthdayPage() {
           const dx = Math.max(b.left - t.clientX, 0, t.clientX - b.right), dy = Math.max(b.top - t.clientY, 0, t.clientY - b.bottom);
           if (Math.hypot(dx, dy) < 40) openGift();
         }}>
-          <p className="eyebrow">29 September · A little secret</p>
+          <p className="eyebrow">1 October · A little secret</p>
           <h1>Ek surprise hai<br />tere liye, <em>Dayan...</em></h1>
           <div className={`gift ${shaking ? "gift-shake" : ""}`} aria-hidden="true"><span className="gift-lid" /><span className="gift-box" /><span className="gift-ribbon" /><span className="gift-bow left" /><span className="gift-bow right" /></div>
           <div className="open-slot">
